@@ -1,4 +1,4 @@
-module codehouse-2021-prework
+module girlbosses
 
 go 1.16
 
