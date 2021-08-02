@@ -10,6 +10,7 @@ import (
 
 var nextId int = 0
 var users []User
+var profiles []Profile //array of type profiles
 
 func GetNextId() int {
 	value := nextId
@@ -47,8 +48,24 @@ func DeleteUser(c *gin.Context) {
 	c.JSON(http.StatusBadRequest, gin.H{"error": "invalid id"})
 }
 
+func GetProfile(c *gin.Context) {
+	idString := c.Param("id")
+
+	if id, err := strconv.Atoi(idString); err == nil {
+		for index := range profiles {
+			if profiles[index].Id == id {
+				c.JSON(http.StatusOK, gin.H{"element": profiles[index]})
+				return
+			}
+		}
+	}
+
+	c.JSON(http.StatusBadRequest, gin.H{"error": "invalid id"})
+}
+
 func main() {
 	users = append(users, User{Id: GetNextId(), Username: "CodeHouse", Password: "7/31/2021"})
+	profiles = append(profiles, Profile{Id: 0, Name: "name", Age: 0, University: "university"})
 
 	r := gin.Default()
 	r.Use(static.Serve("/", static.LocalFile("./vue-project/dist", false)))
