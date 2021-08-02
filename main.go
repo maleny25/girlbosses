@@ -9,13 +9,15 @@ import (
 )
 
 var nextId int = 0
-var profiles []Profile
+var users []User
+var profiles []Profile //array of type profiles
 
 func GetNextId() int {
 	value := nextId
 	nextId++
 	return value
 }
+
 
 func GetProfiles(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"list": profiles})
@@ -39,6 +41,44 @@ func DeleteProfile(c *gin.Context) {
 			if profiles[index].Id == id {
 				profiles = append(profiles[:index], profiles[index+1:]...)
 				c.Writer.WriteHeader(http.StatusNoContent)
+
+func GetUsers(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"list": users})
+}
+
+func SignUpUser(c *gin.Context) {
+	var user User
+	if err := c.ShouldBindJSON(&user); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	user.Id = GetNextId()
+	users = append(users, user)
+	c.String(http.StatusCreated, c.FullPath()+"/"+strconv.Itoa(user.Id))
+}
+
+func DeleteUser(c *gin.Context) {
+	idString := c.Param("id")
+	if id, err := strconv.Atoi(idString); err == nil {
+		for index := range users {
+			if users[index].Id == id {
+				users = append(users[:index], users[index+1:]...)
+				c.Writer.WriteHeader(http.StatusNoContent)
+				return
+			}
+		}
+	}
+
+	c.JSON(http.StatusBadRequest, gin.H{"error": "invalid id"})
+}
+
+func GetProfile(c *gin.Context) {
+	idString := c.Param("id")
+
+	if id, err := strconv.Atoi(idString); err == nil {
+		for index := range profiles {
+			if profiles[index].Id == id {
+				c.JSON(http.StatusOK, gin.H{"element": profiles[index]})
 				return
 			}
 		}
@@ -57,5 +97,14 @@ func main() {
 	r.GET("/api/profiles", GetProfiles)
 	r.POST("/api/profiles", SignUpProfile)
 	r.DELETE("/api/profiles/:id", DeleteProfile)
-	r.Run(":8091")
+
+	users = append(users, User{Id: GetNextId(), Username: "CodeHouse", Password: "7/31/2021"})
+	profiles = append(profiles, Profile{Id: 0, Name: "name", Age: 0, University: "university"})
+
+	r.Use(static.Serve("/", static.LocalFile("./vue-project/dist", false)))
+	r.GET("/api/users", GetUsers)
+	r.POST("/api/users", SignUpUser)
+	r.DELETE("/api/users/:id", DeleteUser)
+	r.Run(":8090")
+
 }
