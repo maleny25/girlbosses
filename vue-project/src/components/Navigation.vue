@@ -2,7 +2,7 @@
   <nav>
     <ul>
       <li><a href="/">Home</a></li>
-      <li><a href="/">Foo</a></li>
+      <li><a href="/foo">Foo</a></li>
     </ul>
   </nav>
 </template>
