@@ -48,7 +48,9 @@ func DeleteProfile(c *gin.Context) {
 }
 
 func main() {
-	profiles = append(profiles, Profile{Id: GetNextId(), Name: "CodeHouse", University: "7/31/2021"})
+	profiles = append(profiles, Profile{Id: GetNextId(), Name: "Jane Doe", Age: "22", Gender: "Female", Race: "White",
+		University: "College University", Major: "Buisness", Minor: "", Gradyear: "2021",
+		Description: "Graduating senior looking for a consulting company."})
 
 	r := gin.Default()
 	r.Use(static.Serve("/", static.LocalFile("./profile-vue/dist", false)))
