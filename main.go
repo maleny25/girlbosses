@@ -99,8 +99,8 @@ func main() {
 		Event{Name: "Big Tech Company Recruiter Panel", Date: "08/03/2021",
 			Description: "Come ask our recruiter's all your questions about resumes, internships, and more!",
 			Link:        "dummylink",
-			Type:        "Panel",
-			Tags:        {"Internship", "Computer Science"}})
+			Type:        "Panel"})
+			//Tags:        [3]string{"Internship", "Computer Science", "Female"}})
 
 	r.Use(static.Serve("/", static.LocalFile("./viewprofile-vue/dist", false)))
 	r.GET("/api/profiles", GetProfiles)
