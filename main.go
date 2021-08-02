@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -11,6 +12,10 @@ import (
 var nextId int = 0
 var users []User
 var profiles []Profile //array of type profiles
+
+// map of username: password
+var userMap = make(map[string]string)
+var loggedinUser int
 
 func GetNextId() int {
 	value := nextId
@@ -46,6 +51,32 @@ func GetUsers(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"list": users})
 }
 
+func UserLogin(c *gin.Context) {
+	var user User
+	if err := c.ShouldBindJSON(&user); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	fmt.Println(user.Username)
+	if pass, work := userMap[user.Username]; work {
+		if pass == user.Password {
+			for index := range users {
+				if users[index].Username == user.Username {
+					loggedinUser = index
+					c.String(http.StatusOK, c.FullPath()+"/"+strconv.Itoa(index))
+					return
+				}
+			}
+			c.JSON(http.StatusBadRequest, gin.H{"error": "invalid"})
+			return
+		} else {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "invalid password"})
+			return
+		}
+	}
+	c.JSON(http.StatusBadRequest, gin.H{"error": "invalid username", "user": user.Username})
+}
+
 func SignUpUser(c *gin.Context) {
 	var user User
 	if err := c.ShouldBindJSON(&user); err != nil {
@@ -54,6 +85,9 @@ func SignUpUser(c *gin.Context) {
 	}
 	user.Id = GetNextId()
 	users = append(users, user)
+	userMap[user.Username] = user.Password
+	loggedinUser = user.Id
+
 	c.String(http.StatusCreated, c.FullPath()+"/"+strconv.Itoa(user.Id))
 }
 
@@ -88,6 +122,9 @@ func GetProfile(c *gin.Context) {
 }
 
 func main() {
+	users = append(users, User{Id: GetNextId(), Username: "CodeHouse", Password: "7/31/2021"})
+	userMap["CodeHouse"] = "7/31/2021"
+  
 	profiles = append(profiles, Profile{Id: GetNextId(), Name: "Jane Doe", Age: "22", Gender: "Female", Race: "White",
 		University: "College University", Major: "Buisness", Minor: "", Gradyear: "2021",
 		Description: "Graduating senior looking for a consulting company."})
@@ -105,6 +142,7 @@ func main() {
 	r.GET("/api/users", GetUsers)
 	r.POST("/api/users", SignUpUser)
 	r.DELETE("/api/users/:id", DeleteUser)
+	r.POST("/api/users/login", UserLogin)
 	r.Run(":8090")
 
 }

@@ -43,8 +43,7 @@
         class="success-message"
       >✅ Account successfully created</p>
     </form>
-
-  </div>
+    </div>
 </template>
 
 <script>
