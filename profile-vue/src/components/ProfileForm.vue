@@ -120,9 +120,49 @@ export default {
 </script>
 
 <style scoped>
+
 form {
-  margin-bottom: 2rem;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
+
+body {
+  background-image: url("https://3.bp.blogspot.com/-WWI2gv4aRfU/UUbAeIbWb-I/AAAAAAAAE-4/vuCyRzH1hnQ/s1600/white-oilcloth-seamless-background-texture.jpg");
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #25598d;
+}
+
+/* Style the top navigation bar */
+.topnav {
+  overflow: hidden;
+  background-color: #25598d;
+}
+
+/* Style the topnav links */
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change color on hover */
+.topnav a:hover {
+  background-color: #aec2d5;
+  color: black;
+}
+
+/* Style the content */
+.content {
+  background-color: #aec2d5;
+  padding: 10px;
+  height: 100px; /* Should be removed. Only for demonstration */
+}
+
+
 [class*="-message"] {
   font-weight: 500;
 }

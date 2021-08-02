@@ -1,6 +1,18 @@
 <template>
 <div id="view-profiles" style="text-align: center;">
-    <h2><label>Your Profile</label></h2>
+    
+    <body>
+
+<div class="topnav">
+  <a href="#">Profile</a>
+  <a href="#">Events</a>
+  <a href="#">Scholarships</a>
+</div>
+
+<div class="content">
+  <h1><label>Your Profile</label></h1>
+</div>
+
     
 <table style="width: 100%; border-collapse: collapse; border-style: hidden;" border="0">
 <tbody>
@@ -18,35 +30,24 @@
 <p style="text-align: right;">&nbsp;</p>
 <p style="text-align: right;">Description:</p>
 </td>
-<td style="padding-left: 40px;">
-        <tr v-for="profile in profiles" :key="profile.id">
-          <td>{{ profile.name }}</td>
-          <td>{{ profile.age }}</td>
-          <td>{{ profile.gender }}</td>
-          <td>{{ profile.race }}</td>
-          <td>{{ profile.university }}</td>
-          <td>{{ profile.major }}</td>
-          <td>{{ profile.minor }}</td>
-          <td>{{ profile.gradyear }}</td>
-          <td>{{ profile.description }}</td>
-
-        </tr>
-<p style="text-align: left;">Name:</p>
-<p style="text-align: left;">Age:</p>
-<p style="text-align: left;">Gender:</p>
-<p style="text-align: left;">Race:</p>
+<td>
+<p style="text-align: left;">Name</p>
+<p style="text-align: left;">Age</p>
+<p style="text-align: left;">Gender</p>
+<p style="text-align: left;">Race</p>
 <p style="text-align: left;">&nbsp;</p>
-<p style="text-align: left;">University:</p>
-<p style="text-align: left;">Major:</p>
-<p style="text-align: left;">Minor:</p>
-<p style="text-align: left;">Grad Year:</p>
+<p style="text-align: left;">University</p>
+<p style="text-align: left;">Major</p>
+<p style="text-align: left;">Minor</p>
+<p style="text-align: left;">Grad Year</p>
 <p style="text-align: left;">&nbsp;</p>
-<p style="text-align: left;">Description:</p>
+<p style="text-align: left;">Description</p>
 </td>
 </tr>
 </tbody>
 </table>
 </div>
+
 
 </template>
 
@@ -57,15 +58,44 @@
 
 <style scoped>
 form {
-  margin-bottom: 2rem;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
-[class*="-message"] {
-  font-weight: 500;
+
+body {
+  background-image: url("https://3.bp.blogspot.com/-WWI2gv4aRfU/UUbAeIbWb-I/AAAAAAAAE-4/vuCyRzH1hnQ/s1600/white-oilcloth-seamless-background-texture.jpg");
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #25598d;
 }
-.error-message {
-  color: #d33c40;
+
+/* Style the top navigation bar */
+.topnav {
+  overflow: hidden;
+  background-color: #25598d;
 }
-.success-message {
-  color: #32a95d;
+
+/* Style the topnav links */
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
 }
+
+/* Change color on hover */
+.topnav a:hover {
+  background-color: #aec2d5;
+  color: black;
+}
+
+/* Style the content */
+.content {
+  background-color: #aec2d5;
+  padding: 10px;
+  height: 100px; /* Should be removed. Only for demonstration */
+}
+
 </style>

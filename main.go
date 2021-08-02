@@ -11,6 +11,7 @@ import (
 var nextId int = 0
 var users []User
 var profiles []Profile //array of type profiles
+var events []Event
 
 func GetNextId() int {
 	value := nextId
@@ -92,6 +93,14 @@ func GetProfile(c *gin.Context) {
 
 func main() {
 	r := gin.Default()
+
+	//event list
+	events = append(events,
+		Event{Name: "Big Tech Company Recruiter Panel", Date: "08/03/2021",
+			Description: "Come ask our recruiter's all your questions about resumes, internships, and more!",
+			Link:        "dummylink",
+			Type:        "Panel",
+			Tags:        {"Internship", "Computer Science"}})
 
 	r.Use(static.Serve("/", static.LocalFile("./viewprofile-vue/dist", false)))
 	r.GET("/api/profiles", GetProfiles)
