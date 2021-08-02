@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     getProfiles: getProfiles,
-    PostProfile: PostProfile
+    addProfile: addProfile
   }
 }
 
@@ -43,7 +43,7 @@ async function getProfiles() {
     }
 }
 
-async function PostProfile(profile) {
+async function addProfile(profile) {
   try {
     const response = await fetch('/api/profiles', {
       method: 'POST',

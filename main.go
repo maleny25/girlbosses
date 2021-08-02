@@ -22,14 +22,14 @@ func GetProfiles(c *gin.Context) {
 }
 
 func SignUpProfile(c *gin.Context) {
-	var profile Profile
-	if err := c.ShouldBindJSON(&profile); err != nil {
+	var item Profile
+	if err := c.ShouldBindJSON(&item); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	profile.Id = GetNextId()
-	profiles = append(profiles, profile)
-	c.String(http.StatusCreated, c.FullPath()+"/"+strconv.Itoa(profile.Id))
+	item.Id = GetNextId()
+	profiles = append(profiles, item)
+	c.String(http.StatusCreated, c.FullPath()+"/"+strconv.Itoa(item.Id))
 }
 
 func DeleteProfile(c *gin.Context) {

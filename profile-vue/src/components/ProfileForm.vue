@@ -1,15 +1,14 @@
 <template>
   <div id="profile-form" style="text-align: center;">
-    <form>
+    <form @submit.prevent="handleSubmit">
     <h2><label>Profile</label></h2>
-    <p class="error-message" style="text-align: center;">❗Please fill out all required fields</p>
-    <p class="success-message" style="text-align: center;">✅ Profile Created</p>
+
     <p>&nbsp;</p>
     <table style="height: 232px; width: 98.4134%; border-collapse: collapse; border-style: hidden;" border="0">
       <tbody>
       <tr style="height: 18px;">
       <td style="width: 43.2991%; height: 18px; text-align: right;">Name* :</td>
-      <td style="width: 93.5772%; height: 18px; text-align: left;"><input type="text" /></td>
+      <td style="width: 93.5772%; height: 18px; text-align: left;"><input v-model="profile.name" type="text" /></td>
       </tr>
       <tr style="height: 18px;">
       <td style="width: 43.2991%; height: 18px; text-align: right;">Age :</td>
@@ -29,7 +28,7 @@
       </tr>
       <tr style="height: 18px;">
       <td style="width: 43.2991%; height: 18px; text-align: right;">University* :</td>
-      <td style="width: 93.5772%; height: 18px; text-align: left;"><input type="text" /></td>
+      <td style="width: 93.5772%; height: 18px; text-align: left;"><input v-model="profile.university" type="text" /></td>
       </tr>
       <tr style="height: 18px;">
       <td style="width: 43.2991%; height: 18px; text-align: right;">Major* :</td>
